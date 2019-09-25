@@ -1,0 +1,25 @@
+TESTS
+
+1° Verificar el uso de los metodos solicitados.
+
+2° Verificar que la lista se crea correctamente.
+
+3° Verificar que la lista se borra correctamente.
+
+4° Verificar que toda la memoria sea liberada correctamente.
+
+5° Verificar los calculos del monto total realizados por cada codigo de tarifa.
+
+6° Verificar que la funcion lea/abra un archivo x.
+
+7° Verficar que una funcion x devuelva la cantidad de llamadas y tiempo acumulado total de cada codigo tarifa.
+
+8° Verificar el correcto llenado de la lista.
+
+9° Corroborar la declaracion de las bibliotecas, metodos y estructuras.
+
+-- EXTRA TESTS
+
+1° Verificacion de Codigo Muerto.
+
+2° Buenas Practicas.
