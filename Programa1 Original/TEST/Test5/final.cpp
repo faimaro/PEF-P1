@@ -28,9 +28,9 @@ main (void)
 
   int error = 0, i = 0, cantidad = 0;
   llamadas *datos = NULL;
-  int cantidad1, cantidad2, cantidad3;
+  int cantidad1 = 0, cantidad2 = 0, cantidad3 = 0;
   float tiempo1, tiempo2, tiempo3;
-  float monto1, monto2, monto3;
+  float monto1 = 0.0, monto2 = 0.0, monto3 = 0.0;
 
   datos = LeerArchivo (error, cantidad);
   if (error)
@@ -43,20 +43,21 @@ main (void)
       CantTiemp (datos, cantidad, cantidad1, cantidad2, cantidad3, tiempo1,
 		 tiempo2, tiempo3);
 
-  //     cout << "Cantidad de llamadas '1': " << cantidad1 << "\tduracion: " <<
-	// tiempo1;
-  //     cout << "\tCantidad de llamadas '2': " << cantidad2 << "\tduracion: " <<
-	// tiempo2;
-  //     cout << "\tCantidad de llamadas '3': " << cantidad3 << "\tduracion: " <<
-	// tiempo3 << endl;
+          cout << "Cantidad de llamadas '1': " << cantidad1 << "\tduracion: " <<
+      tiempo1;
+          cout << "\tCantidad de llamadas '2': " << cantidad2 << "\tduracion: " <<
+      tiempo2;
+          cout << "\tCantidad de llamadas '3': " << cantidad3 << "\tduracion: " <<
+      tiempo3 << endl;
 
       Monto (datos, cantidad, monto1, monto2, monto3, tiempo1, tiempo2,
 	     tiempo3);
 
       // cout  << monto1 << endl;
-      cout << setprecision(3) << monto1 << endl;
-      cout << monto2 << endl;
-      cout  << monto3 << endl;
+      // cout << "Resultados" <<endl;
+      cout << "Monto total del tipo '1':$ " << monto1;
+      cout << "\tMonto total del tipo '2':$ " << monto2;
+      cout << "\tMonto total del tipo '3':$ " << monto3 << endl;
 
 
 
@@ -75,14 +76,14 @@ AgregarNodo (llamadas * f)
     {
       aux->next = NULL;
       if (f != NULL)
-	{
-	  while (f != NULL)
-	    {
-	      ult = f;
-	      f = f->next;
-	    }
-	  ult->next = aux;
-	}
+      {
+        while (f != NULL)
+        {
+          ult = f;
+          f = f->next;
+        }
+        ult->next = aux;
+      }
     }
 
 
@@ -121,7 +122,7 @@ LeerArchivo (int &error, int &lineas)
   ifstream entrada;
   llamadas *pri = NULL, *aux = NULL;
 
-  // cout << "Ingrese el nombre del archivo: " << endl;
+  cout << "Ingrese el nombre del archivo: " << endl;
   cin >> nombre;
 
   entrada.open (nombre);
@@ -132,24 +133,26 @@ LeerArchivo (int &error, int &lineas)
   else
     {
       while ((!entrada.eof ()) && (!error))
-	{
-	  aux = AgregarNodo (pri);
-	  if (aux == NULL)
-	    {
-	      error = 2;
-	    }
-	  else
-	    {
-	      if (pri == NULL)
-		{
-		  pri = aux;
-		}
-	      lineas++;
-	      aux->horas = tmp;
-	      entrada >> aux->minutos >> aux->segundos >> aux->
-		duracion >> aux->codigo >> tmp;
-	    }
-	}
+      {
+        aux = AgregarNodo (pri);
+        if (aux == NULL)
+          {
+            error = 2;
+          }
+        else
+          {
+            if (pri == NULL)
+            {
+              pri = aux;
+            }
+            lineas++;
+            // aux->horas = tmp;
+            entrada >> aux->horas >> aux->minutos >> aux->segundos >> aux->duracion >> aux->codigo;
+            // string a;
+            // entrada >> a;
+            // cout << "Todo pai "<< aux->horas << endl;
+          }
+      }
       entrada.close ();
     }
 
@@ -161,37 +164,37 @@ void
 CantTiemp (llamadas * f, int lineas, int &cant1, int &cant2, int &cant3,
 	   float &tiemp1, float &tiemp2, float &tiemp3)
 {
-  int i = 0, total = 50 * lineas;
-  for (i = 1; i < total; i++)
+  // int i = 0, total = 50 * lineas;=
+  // llamadas *aux = f;
+  int i = 0, total = lineas;
+  for (i = 0; i < total; i++)
+  {
+    if (f->codigo == 1)
     {
-      if (f->codigo == 1)
-	{
-	  cant1++;
-	  tiemp1 += f->duracion;
-	}
-      if (f->codigo == 2)
-	{
-	  cant2++;
-	  tiemp2 += f->duracion;
-	}
-      else
-	{
-	  cant3++;
-	  tiemp3 += f->duracion;
-	}
+      cant1++;
+      tiemp1 += f->duracion; 
     }
+    else if (f->codigo == 2)
+    {
+      cant2++;
+      tiemp2 += f->duracion;
+    }
+    else
+    {
+      cant3++;
+      tiemp3 += f->duracion;
+    }
+
+    f = f->next;
+  }
 }
 
 void
 Monto (llamadas * f, int lineas, float &m1, float &m2, float &m3,
        float tiemp1, float tiemp2, float tiemp3)
 {
-
   int i = 0, total = lineas;
-  for (i = 1; i < total; i++)
-    {
-      m1 = 0.1 * tiemp1;
-      m2 = 0.025 * tiemp2;
-      m3 = 0.045 * tiemp3;
-    }
+  m1 = 0.010 * tiemp1;
+  m2 = 0.025 * tiemp2;
+  m3 = 0.045 * tiemp3;
 }
