@@ -43,12 +43,12 @@ main (void)
       CantTiemp (datos, cantidad, cantidad1, cantidad2, cantidad3, tiempo1,
 		 tiempo2, tiempo3);
 
-          cout << "Cantidad de llamadas '1': " << cantidad1 << "\tduracion: " <<
-      tiempo1;
-          cout << "\tCantidad de llamadas '2': " << cantidad2 << "\tduracion: " <<
-      tiempo2;
-          cout << "\tCantidad de llamadas '3': " << cantidad3 << "\tduracion: " <<
-      tiempo3 << endl;
+      cout << "Cantidad de llamadas '1': " << cantidad1 << "\tduracion: " <<
+	tiempo1;
+      cout << "\tCantidad de llamadas '2': " << cantidad2 << "\tduracion: " <<
+	tiempo2;
+      cout << "\tCantidad de llamadas '3': " << cantidad3 << "\tduracion: " <<
+	tiempo3 << endl;
 
       Monto (datos, cantidad, monto1, monto2, monto3, tiempo1, tiempo2,
 	     tiempo3);
@@ -76,14 +76,14 @@ AgregarNodo (llamadas * f)
     {
       aux->next = NULL;
       if (f != NULL)
-      {
-        while (f != NULL)
-        {
-          ult = f;
-          f = f->next;
-        }
-        ult->next = aux;
-      }
+	{
+	  while (f != NULL)
+	    {
+	      ult = f;
+	      f = f->next;
+	    }
+	  ult->next = aux;
+	}
     }
 
 
@@ -133,26 +133,27 @@ LeerArchivo (int &error, int &lineas)
   else
     {
       while ((!entrada.eof ()) && (!error))
-      {
-        aux = AgregarNodo (pri);
-        if (aux == NULL)
-          {
-            error = 2;
-          }
-        else
-          {
-            if (pri == NULL)
-            {
-              pri = aux;
-            }
-            lineas++;
-            // aux->horas = tmp;
-            entrada >> aux->horas >> aux->minutos >> aux->segundos >> aux->duracion >> aux->codigo;
-            // string a;
-            // entrada >> a;
-            // cout << "Todo pai "<< aux->horas << endl;
-          }
-      }
+	{
+	  aux = AgregarNodo (pri);
+	  if (aux == NULL)
+	    {
+	      error = 2;
+	    }
+	  else
+	    {
+	      if (pri == NULL)
+		{
+		  pri = aux;
+		}
+	      lineas++;
+	      // aux->horas = tmp;
+	      entrada >> aux->horas >> aux->minutos >> aux->segundos >> aux->
+		duracion >> aux->codigo;
+	      // string a;
+	      // entrada >> a;
+	      // cout << "Todo pai "<< aux->horas << endl;
+	    }
+	}
       entrada.close ();
     }
 
@@ -168,25 +169,25 @@ CantTiemp (llamadas * f, int lineas, int &cant1, int &cant2, int &cant3,
   // llamadas *aux = f;
   int i = 0, total = lineas;
   for (i = 0; i < total; i++)
-  {
-    if (f->codigo == 1)
     {
-      cant1++;
-      tiemp1 += f->duracion; 
-    }
-    else if (f->codigo == 2)
-    {
-      cant2++;
-      tiemp2 += f->duracion;
-    }
-    else
-    {
-      cant3++;
-      tiemp3 += f->duracion;
-    }
+      if (f->codigo == 1)
+	{
+	  cant1++;
+	  tiemp1 += f->duracion;
+	}
+      else if (f->codigo == 2)
+	{
+	  cant2++;
+	  tiemp2 += f->duracion;
+	}
+      else
+	{
+	  cant3++;
+	  tiemp3 += f->duracion;
+	}
 
-    f = f->next;
-  }
+      f = f->next;
+    }
 }
 
 void
