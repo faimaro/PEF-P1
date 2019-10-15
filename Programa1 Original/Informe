@@ -1,0 +1,66 @@
+Informe:
+
+
+Test 5: Verificar los calculos del monto total realizados por cada codigo de tarifa.
+
+Se izo un sh para verificar si los montos que arrojaba el programa eran correcto.
+Primero se corrio el programa original y luego el corregido.
+
+Cuando se ejecuta el sh el programa queda en espera, en ese momento se debe ingresar
+el nombre del archivo "prueba.dat". Por defecto se ejecuta el programa corregido, para
+ejecutar el no corregido descomentar la linea 9.
+
+#Progrma Origina
+4.58225e-42
+No paso
+0
+No paso
+65248.7
+No paso
+
+Como se observa el programa original no calcula correctamente los montos por ende tuvimos
+que corregir el programa.
+
+#Programa Corregido
+837.3
+Codigo 1, paso
+2044.03
+Codigo 2, paso
+3606.12
+Codigo 3, paso
+
+
+TEST 4: Verificar que toda la memoria sea liberada correctamente
+
+Ejecutamos valgrind --tool=memcheck ./final para verificar si la memoria estaba siendo 
+liberada correctamente
+
+#Codigo Original
+HEAP SUMMARY:
+     in use at exit: 32,000 bytes in 1,000 blocks
+   total heap usage: 1,005 allocs, 5 frees, 115,496 bytes allocated
+ 
+ LEAK SUMMARY:
+    definitely lost: 32 bytes in 1 blocks
+    indirectly lost: 31,968 bytes in 999 blocks
+      possibly lost: 0 bytes in 0 blocks
+    still reachable: 0 bytes in 0 blocks
+         suppressed: 0 bytes in 0 blocks
+
+#Codigo Corregido
+ HEAP SUMMARY:
+     in use at exit: 0 bytes in 0 blocks
+   total heap usage: 1,005 allocs, 1,005 frees, 115,496 bytes allocated
+ 
+ All heap blocks were freed -- no leaks are possible
+
+En esta prueba se puede observar que el codigo original no libera la memoria correctamente
+y deja mucha basura. En principo el metodo para liberar la memoria estaba pero no era llamado
+por el main, luego sucedio que el metodo no liberaba la memoria asi que se corrigio; una vez
+corregido el programa libera correctamente la memoria.
+
+ExtraTest2: 
+
+Tuvimos que aplicar el comando "indent -bl" para que el codigo fuera mas legible, ya que no contaba 
+con las tabulaciones correspondientes.
+
