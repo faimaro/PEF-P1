@@ -10,7 +10,7 @@ TESTS
 
 5° Verificar los calculos del monto total realizados por cada codigo de tarifa.
 
-6° Verificar que la funcion lea/abra un archivo x.
+6° Verificar que la funcion lea/abra un archivo x. (caso de que no exista, caso de que este vacio.)
 
 7° Verficar que una funcion x devuelva la cantidad de llamadas y tiempo acumulado total de cada codigo tarifa.
 
