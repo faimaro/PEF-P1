@@ -1,0 +1,163 @@
+        -:    0:Source:final.cpp
+        -:    0:Graph:final.gcno
+        -:    0:Data:final.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <iostream>
+        -:    2:#include <fstream>
+        -:    3:
+        -:    4:using namespace std;
+        -:    5:
+        -:    6:struct llamadas{
+        -:    7:       int horas,minutos,segundos,duracion;
+        -:    8:       int cant,codigo;
+        -:    9:       llamadas *next;
+        -:   10:       };
+        -:   11:       
+        -:   12:llamadas *AgregarNodo (llamadas *f);
+        -:   13:void BorrarLista (llamadas *f);
+        -:   14:void MostrarLista (llamadas *f);
+        -:   15:llamadas *LeerArchivo (int &error,int &lineas);
+        -:   16:void CantTiemp (llamadas *f,int lineas,int &cant1,int &cant2,int &cant3,float &tiemp1,float &tiemp2,float &tiemp3);
+        -:   17:void Monto (llamadas *f,int lineas,float &m1,float &m2,float &m3,float tiemp1,float tiemp2,float tiemp3);
+        -:   18:
+        -:   19:       
+        1:   20:int main(void){
+        -:   21:    
+        1:   22:    int error=0,i=0,cantidad=0;
+        1:   23:    llamadas *datos=NULL;
+        -:   24:    int cantidad1,cantidad2,cantidad3;
+        -:   25:    float tiempo1,tiempo2,tiempo3;
+        -:   26:    float monto1,monto2,monto3;
+        -:   27:    
+        1:   28:    datos=LeerArchivo(error,cantidad);
+        1:   29:    if(error){
+    #####:   30:              cerr<<"Problemas con el archivo"<<endl;
+        -:   31:              }
+        -:   32:    else{
+        1:   33:         cout<<"Se leyeron: "<<cantidad<<" lineas."<<endl;
+        1:   34:         CantTiemp(datos,cantidad,cantidad1,cantidad2,cantidad3,tiempo1,tiempo2,tiempo3);
+        -:   35:         
+        1:   36:         cout<<"Cantidad de llamadas '1': "<<cantidad1<<"\tduracion: "<<tiempo1;
+        1:   37:         cout<<"\tCantidad de llamadas '2': "<<cantidad2<<"\tduracion: "<<tiempo2;
+        1:   38:         cout<<"\tCantidad de llamadas '3': "<<cantidad3<<"\tduracion: "<<tiempo3<<endl;
+        -:   39:         
+        1:   40:         Monto(datos,cantidad,monto1,monto2,monto3,tiempo1,tiempo2,tiempo3);
+        -:   41:         
+        1:   42:         cout<<"Monto total del tipo '1':$ "<<monto1;
+        1:   43:         cout<<"\tMonto total del tipo '2':$ "<<monto2;
+        1:   44:         cout<<"\tMonto total del tipo '3':$ "<<monto3<<endl;
+        -:   45:         
+        -:   46:    
+        -:   47:    
+        1:   48:    return error;
+        -:   49:
+        -:   50:}
+    #####:   51:}
+        -:   52:
+     1000:   53:llamadas *AgregarNodo (llamadas *f) {
+     1000:   54:  llamadas *ult=NULL, *aux=NULL;
+        -:   55:
+     1000:   56:  aux = new llamadas;
+     1000:   57:  if (aux!=NULL) {
+     1000:   58:      aux->next=NULL;           
+     1000:   59:    if (f!=NULL) {
+   999999:   60:      while (f!=NULL) {
+   499500:   61:	ult=f;
+   499500:   62:	f=f->next;
+        -:   63:      }
+      999:   64:      ult->next=aux;
+        -:   65:    }
+        -:   66:  }
+        -:   67:
+        -:   68:
+     1000:   69:  return aux;
+        -:   70:}
+        -:   71:
+    #####:   72:void BorrarLista (llamadas *f) {
+    #####:   73:  llamadas *aux=NULL;
+        -:   74:
+    #####:   75:  while (f!=NULL) {
+    #####:   76:    aux=f;
+    #####:   77:    f=f->next;
+    #####:   78:    delete aux;
+        -:   79:  }
+    #####:   80:}
+        -:   81:
+    #####:   82:void MostrarLista (llamadas *f) {
+    #####:   83:  while (f!=NULL) {
+    #####:   84:    cout << f->horas << " " << f->minutos << " " << f->segundos << " "<<
+    #####:   85:    " "<<f->duracion<<" "<<f->codigo<<endl;
+    #####:   86:    f=f->next;
+        -:   87:  }
+    #####:   88:}
+        -:   89:
+        1:   90:llamadas *LeerArchivo (int &error,int &lineas){
+        1:   91:         int i=0,tmp=0;
+        -:   92:         char nombre[30];
+        2:   93:         ifstream entrada;
+        1:   94:         llamadas *pri=NULL, *aux=NULL;
+        -:   95:         
+        1:   96:         cout<<"Ingrese el nombre del archivo: "<<endl;
+        1:   97:         cin>>nombre;
+        -:   98:         
+        1:   99:         entrada.open(nombre);
+        1:  100:         if(entrada.fail()){
+    #####:  101:                            error=1;
+        -:  102:                            }
+        -:  103:         else{
+     2001:  104:              while ((!entrada.eof()) && (!error)) {
+     1000:  105:      aux=AgregarNodo(pri);
+     1000:  106:      if (aux==NULL) {
+    #####:  107:	error=2;
+        -:  108:      }
+        -:  109:      else {
+     1000:  110:	if (pri==NULL) {
+        1:  111:	  pri=aux;
+        -:  112:	}
+     1000:  113:	lineas++;
+     1000:  114:	aux->horas=tmp;
+     1000:  115:	entrada >> aux->minutos >> aux->segundos>> aux->duracion >> aux-> codigo>>tmp;
+        -:  116:      }
+        -:  117:    }
+        1:  118:    entrada.close();
+        -:  119:  }
+        -:  120:
+        2:  121:  return pri;
+        -:  122:}
+        -:  123:
+        -:  124:
+        1:  125:void CantTiemp (llamadas *f,int lineas,int &cant1,int &cant2,int &cant3,float &tiemp1,float &tiemp2,float &tiemp3){
+        1:  126:     int i=0,total=50*lineas;
+    50000:  127:     for(i=1;i<total;i++){
+    49999:  128:         if(f->codigo==1){
+    #####:  129:                       cant1++;
+    #####:  130:                       tiemp1+=f->duracion;
+        -:  131:                       }
+    49999:  132:         if(f->codigo==2){
+    #####:  133:                       cant2++;
+    #####:  134:                       tiemp2+=f->duracion;
+        -:  135:                       }
+        -:  136:         else{
+    49999:  137:              cant3++;
+    49999:  138:              tiemp3+=f->duracion;
+        -:  139:              }
+        -:  140:              }
+        1:  141:              }
+        -:  142:
+        1:  143:void Monto (llamadas *f,int lineas,float &m1,float &m2,float &m3,float tiemp1,float tiemp2,float tiemp3){
+        -:  144:     
+        1:  145:     int i=0,total=50*lineas;
+    50000:  146:     for(i=1;i<total;i++){
+    49999:  147:         m1= 0.1*tiemp1;
+    49999:  148:         m2= 0.025*tiemp2;
+    49999:  149:         m3= 0.045*tiemp3;
+        -:  150:     }
+        4:  151:     }
+        -:  152:     
+        -:  153:   
+        -:  154:     
+        -:  155:            
+        -:  156:              
+        -:  157:              
+        -:  158:              
